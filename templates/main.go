@@ -9,7 +9,7 @@ import (
 
 // Content missing godoc.
 //
-//go:embed bash/*
+//go:embed bash/* python/*
 var Content embed.FS
 
 func GetTemplate(lang, name string) string {
