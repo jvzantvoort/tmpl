@@ -10,8 +10,8 @@
 # REQUIREMENTS:  ---
 #         BUGS:  ---
 #        NOTES:  ---
-#       AUTHOR:  {{.Login}} ({{.Author}}), john@vanzantvoort.org
-#      COMPANY:  JDC
+#       AUTHOR:  {{.Login}} ({{.Author}}), {{.MailAddress}}
+#      COMPANY:  {{.Company}}
 #      CREATED:  {{.Date}}
 #
 # ---------------------------------------------------------------------------- #

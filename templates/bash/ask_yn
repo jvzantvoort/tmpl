@@ -1,0 +1,17 @@
+function ask_yn()
+{
+  local question="$1"
+  local default="$2"
+
+  while true
+  do
+    # shellcheck disable=SC2162
+    read -p "${question} [y|n] ($default): " yn
+    [[ -z $yn ]] && yn=$default
+    case $yn in
+      [Yy]* ) return 0;;
+      [Nn]* ) return 1;;
+      * ) echo "Please answer yes or no.";;
+    esac
+  done
+}

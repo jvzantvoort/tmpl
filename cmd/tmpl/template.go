@@ -15,6 +15,9 @@ type Template struct {
 	Lang    string
 	Login   string
 	Name    string
+	Company string
+	License string
+	MailAddress string
 	Time    string
 }
 
@@ -53,7 +56,30 @@ func NewTemplate(lang string) *Template {
 		panic(err)
 	}
 	retv.Homedir = usr.HomeDir
+
 	retv.Author = usr.Name
+	if len(Name) != 0 {
+		retv.Author = Author
+	}
+
+	if len(Company) != 0 {
+		retv.Company = Company
+	} else {
+		retv.Company = "None"
+	}
+
+	if len(License) != 0 {
+		retv.License = License
+	} else {
+		retv.License = "None"
+	}
+
+	if len(MailAddress) != 0 {
+		retv.MailAddress = MailAddress
+	} else {
+		retv.MailAddress = "None"
+	}
+
 	retv.Login = usr.Username
 	return retv
 }

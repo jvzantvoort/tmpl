@@ -1,0 +1,4 @@
+readonly C_HEREDOC=$(cat <<-ENDHERE
+content
+ENDHERE
+)

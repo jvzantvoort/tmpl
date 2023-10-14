@@ -3,7 +3,7 @@ package messages
 import (
 	"embed"
 	"fmt"
-
+	"io/fs"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -20,4 +20,17 @@ func GetTemplate(lang, name string) string {
 		msgstr = []byte("undefined")
 	}
 	return string(msgstr)
+}
+
+func ListTemplates(lang string) ([]string, error) {
+	retv := []string{}
+	files, err := fs.ReadDir(Content, lang)
+	if err != nil {
+		log.Errorf("Error listing embedded targets: %s", err)
+	return retv, err
+	}
+	for _, item := range files {
+		retv = append(retv, item.Name())
+	}
+	return retv, err
 }

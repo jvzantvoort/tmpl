@@ -1,0 +1,26 @@
+function mkdirp()
+{
+  local dirname
+  local string
+  local retv
+
+  dirname="$1"
+  string="mkdirp ${dirname}"
+  retv=0
+
+  echo "${string}, start"
+
+  if [[ ! -d "$dirname" ]]
+  then
+    if ! mkdir -p "${dirname}"
+    then
+      echo "${string}, failed"
+      retv=1
+    fi
+  else
+    echo "${string}, not needed"
+  fi
+
+  echo "${string}, end"
+  return "${retv}"
+}

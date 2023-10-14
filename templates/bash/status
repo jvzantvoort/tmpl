@@ -1,0 +1,92 @@
+
+declare DEBUG="yes"
+
+# Get screenwidth
+# --------------------------------------
+SCREENWIDTH="$(tput cols)"
+SCREENWIDTH="$((SCREENWIDTH-(SCREENWIDTH%40)))"
+[[ "${SCREENWIDTH}" -lt 80 ]] && SCREENWIDTH=80
+
+MSG_PADSTR_LEN="${SCREENWIDTH}"
+MSG_FORMAT="%-${SCREENWIDTH}s [ %s%-7s%s ]\n"
+unset SCREENWIDTH
+
+readonly MSG_PADSTR_LEN
+readonly MSG_FORMAT
+# --------------------------------------
+
+# colors
+# --------------------------------------
+COLOR_RED=$(tput -Tansi setaf 1)
+COLOR_GREEN=$(tput -Tansi setaf 2)
+COLOR_GREY=$(tput -Tansi setaf 072)
+COLOR_YELLOW=$(tput -Tansi setaf 11)
+COLOR_ORANGE=$(tput -Tansi setaf 208)
+COLOR_RESET=$(tput -Tansi sgr0)
+
+readonly COLOR_RED
+readonly COLOR_GREEN
+readonly COLOR_GREY
+readonly COLOR_YELLOW
+readonly COLOR_ORANGE
+readonly COLOR_RESET
+# --------------------------------------
+
+#shellcheck disable=SC2034
+function strrep() { for x in $(seq 1 "${1}"); do printf "-"; done; }
+
+function print_msg()
+{
+  local color=$1; shift
+  local state=$1; shift
+  local msg="$*"
+  local pad
+  pad="${#msg}" # length of the string
+  pad="$((MSG_PADSTR_LEN-pad))" # subtract it from then screen width
+  padstr="$(strrep "${pad}")" # create padding
+
+  #shellcheck disable=SC2059
+  printf "${MSG_FORMAT}" "$msg ${padstr}" "${color}" "${state}" "${COLOR_RESET}"
+}
+function print_title()   { print_msg "${COLOR_GREY}"   "-------" "$@"; }
+function print_ok()      { print_msg "${COLOR_GREEN}"  "SUCCESS" "$@"; }
+function print_nok()     { print_msg "${COLOR_RED}"    "FAILURE" "$@"; }
+function print_fatal()   { print_msg "${COLOR_RED}"    "FATAL"   "$@"; }
+function print_warning() { print_msg "${COLOR_ORANGE}" "WARNING" "$@"; }
+function print_unknown() { print_msg "${COLOR_YELLOW}" "UNKNOWN" "$@"; }
+function print_debug()
+{
+  [[ "${DEBUG}" != "yes" ]] && return 0
+  printf "%s%s%s\n" "${COLOR_GREY}" "$*" "${COLOR_RESET}"
+}
+
+function test_result()
+{
+  if [[ "${1}" == "0" ]]
+  then
+    print_ok "${2}"
+  else
+    print_nok "${2}"
+  fi
+}
+
+function test_fatal()
+{
+  test_result "${1}" "${2}"
+
+  [[ "${1}" == "0" ]] && exit 1
+}
+
+function command_exists()
+{
+  local retv
+  local cmnd
+  cmnd="$1"
+
+  command -v "$cmnd" >/dev/null 2>&1
+  retv="$?"
+
+  test_result "${retv}" "command: ${cmnd} exists"
+
+  return "${retv}"
+}

@@ -1,0 +1,23 @@
+function mkstaging_area()
+{
+  local retv
+  local template
+  local string
+
+  dirname="$1"
+  string="mkstaging_area ${dirname}"
+  retv=0
+
+  echo "${string}, start"
+
+  STAGING_AREA="$(mktemp -d "/tmp/staging_area.XXXXXXXX")"
+  retv=$?
+
+  if [[ $retv != 0 ]]
+  then
+    printf "%s, failed: %s\n" "${string}" "$retv"
+  fi
+
+  echo "${string}, end"
+  return "${retv}"
+} # end: mkstaging_area
