@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"bytes"
 	"os/user"
 	"text/template"
@@ -19,6 +20,7 @@ type Template struct {
 	License string
 	MailAddress string
 	Time    string
+	AuthorStr string
 }
 
 func (t Template) Template(path string) string {
@@ -28,7 +30,8 @@ func (t Template) Template(path string) string {
 }
 
 // buildConfig contruct the text from the template definition and arguments.
-func (t Template) Parse(templatestring string) string {
+func (t *Template) Parse(templatestring string) string {
+	t.AuthorStr = fmt.Sprintf("%s (%s), %s", t.Login, t.Author, t.MailAddress)
 
 	tmpl, err := template.New("prompt").Parse(templatestring)
 	if err != nil {
@@ -81,5 +84,7 @@ func NewTemplate(lang string) *Template {
 	}
 
 	retv.Login = usr.Username
+
+
 	return retv
 }

@@ -1,17 +1,13 @@
 # ---------------------------------------------------------------------------- #
-#
-#         FILE:  {{.Name}}
-#
-#        USAGE:  {{.Name}}
-#
-#  DESCRIPTION:  Bash script
-#
-#      OPTIONS:  ---
-# REQUIREMENTS:  ---
-#         BUGS:  ---
-#        NOTES:  ---
-#       AUTHOR:  {{.Login}} ({{.Author}}), {{.MailAddress}}
-#      COMPANY:  {{.Company}}
-#      CREATED:  {{.Date}}
-#
+#                                                                              #
+#         FILE:  {{.Name | printf "%-61s" }} #
+#                                                                              #
+#        USAGE:  {{.Name | printf "%-61s" }} #
+#                                                                              #
+#  DESCRIPTION:  Bash script                                                   #
+#                                                                              #
+#       AUTHOR:  {{.AuthorStr | printf "%-61s" }} #
+#      COMPANY:  {{.Company | printf "%-61s" }} #
+#      CREATED:  {{.Date | printf "%-61s" }} #
+#                                                                              #
 # ---------------------------------------------------------------------------- #
