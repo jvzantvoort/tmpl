@@ -11,16 +11,19 @@ import (
 
 type Template struct {
 	Author  string
+	Description  string
 	Date    string
 	Homedir string
 	Lang    string
 	Login   string
 	Name    string
+	AuthorStr string
 	Company string
+	Copyright string
 	License string
 	MailAddress string
 	Time    string
-	AuthorStr string
+	Year    string
 }
 
 func (t Template) Template(path string) string {
@@ -51,6 +54,7 @@ func NewTemplate(lang string) *Template {
 	retv.Name = lang
 	now := time.Now()
 
+	retv.Year = now.Format("2006")
 	retv.Date = now.Format("2006-01-02")
 	retv.Time = now.Format("15:04:05")
 

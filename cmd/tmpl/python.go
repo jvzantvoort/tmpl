@@ -9,15 +9,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// bashCmd represents the bash command
-var bashCmd = &cobra.Command{
-	Use:   "bash",
-	Short: msg.GetUsage("bash"),
-	Long:  msg.GetLong("bash"),
-	Run:   handleBashCmd,
+// pythonCmd represents the python command
+var pythonCmd = &cobra.Command{
+	Use:   "python",
+	Short: msg.GetUsage("python"),
+	Long:  msg.GetLong("python"),
+	Run:   handlePythonCmd,
 }
 
-func handleBashCmd(cmd *cobra.Command, args []string) {
+func handlePythonCmd(cmd *cobra.Command, args []string) {
 
 	if verbose {
 		log.SetLevel(log.DebugLevel)
@@ -33,7 +33,7 @@ func handleBashCmd(cmd *cobra.Command, args []string) {
 	}
 
 	if list {
-		files, err := tmpl.ListTemplates("bash")
+		files, err := tmpl.ListTemplates("python")
 		if err != nil {
 			log.Errorf("listing error: %s", err)
 		}
@@ -42,13 +42,13 @@ func handleBashCmd(cmd *cobra.Command, args []string) {
 		}
 		return
 	}
-	tmpl := NewTemplate("bash")
+	tmpl := NewTemplate("python")
 	for _, arg := range args {
 		fmt.Printf("%s\n", tmpl.Template(arg))
 	}
 }
 
 func init() {
-	rootCmd.AddCommand(bashCmd)
-	bashCmd.Flags().BoolP("list", "l", false, "List files")
+	rootCmd.AddCommand(pythonCmd)
+	pythonCmd.Flags().BoolP("list", "l", false, "List files")
 }
