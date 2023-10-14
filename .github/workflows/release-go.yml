@@ -29,7 +29,7 @@ jobs:
           echo "DEBUG:" $TAGNAME $CREATE_EVENT_REF_TYPE
           echo "========================================================="
           if [ "$CREATE_EVENT_REF_TYPE" != "tag" ]; then echo "ref_type is not a tag: ${CREATE_EVENT_REF_TYPE}" && exit 78; fi
-          make cross
+          ./build.sh cross
           echo "========================================================="
           echo "DEBUG: ls pkg/"
           ls pkg/
