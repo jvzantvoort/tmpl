@@ -1,0 +1,17 @@
+# ---------------------------------------------------------------------------- #
+#
+#         FILE:  {{.Name}}
+#
+#        USAGE:  {{.Name}}
+#
+#  DESCRIPTION:  Bash script
+#
+#      OPTIONS:  ---
+# REQUIREMENTS:  ---
+#         BUGS:  ---
+#        NOTES:  ---
+#       AUTHOR:  {{.Login}} ({{.Author}}), john@vanzantvoort.org
+#      COMPANY:  JDC
+#      CREATED:  {{.Date}}
+#
+# ---------------------------------------------------------------------------- #
